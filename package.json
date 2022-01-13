@@ -1,8 +1,50 @@
 {
-  "name": "node-red-contrib-aliyun-living",
-  "version": "0.0.4",
+  "_from": "node-red-contrib-aliyun-living@0.0.4",
+  "_id": "node-red-contrib-aliyun-living@0.0.4",
+  "_inBundle": false,
+  "_integrity": "sha512-7thhJNyrJISam1Q8WyVlueadHsMViWXef62UFRzf3r1U84RaqVUmrhZGyWpTCnVw/QdyYbhA/qniGLv69ZDbTg==",
+  "_location": "/node-red-contrib-aliyun-living",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "node-red-contrib-aliyun-living@0.0.4",
+    "name": "node-red-contrib-aliyun-living",
+    "escapedName": "node-red-contrib-aliyun-living",
+    "rawSpec": "0.0.4",
+    "saveSpec": null,
+    "fetchSpec": "0.0.4"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/node-red-contrib-aliyun-living/-/node-red-contrib-aliyun-living-0.0.4.tgz",
+  "_shasum": "3b07646a369f1072621f137bace5699f4f60336c",
+  "_spec": "node-red-contrib-aliyun-living@0.0.4",
+  "_where": "/data",
+  "author": {
+    "name": "iso-lib"
+  },
+  "bugs": {
+    "url": "https://github.com/iso-lib/node-red-contrib-aliyun-living/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "alibabacloud-iot-device-sdk": "^1.2.8",
+    "qrcode": "^1.5.0"
+  },
+  "deprecated": false,
   "description": "阿里生活物联网开放平台(飞燕平台)",
+  "homepage": "https://github.com/iso-lib/node-red-contrib-aliyun-living#readme",
+  "keywords": [
+    "aliyun",
+    "node-red",
+    "living"
+  ],
+  "license": "ISC",
   "main": "living.js",
+  "name": "node-red-contrib-aliyun-living",
   "node-red": {
     "nodes": {
       "edge-tts": "living.js"
@@ -10,25 +52,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/iso-lib/node-red-contrib-aliyun-living.git"
-  },
-  "bundleDependencies": false,
-  "dependencies": {
-    "alibabacloud-iot-device-sdk": "^1.2.8",
-    "qrcode": "^1.5.0"
+    "url": "git+https://github.com/iso-lib/node-red-contrib-aliyun-living.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bugs": {
-    "url": "https://github.com/iso-lib/node-red-contrib-aliyun-living/issues"
-  },
-  "homepage": "https://github.com/iso-lib/node-red-contrib-aliyun-living#readme",
-  "keywords": [
-    "aliyun",
-    "node-red",
-    "living"
-  ],
-  "author": "iso-lib",
-  "license": "ISC"
+  "version": "0.0.5"
 }

@@ -21,7 +21,7 @@
 5. 节点手动/语音控制均可反馈到平台,从而同步到天猫精灵APP中状态一致.
 
 ###### 列子
-![e.g.](https://cdn.jsdelivr.net/gh/iso-lib/image@main/屏幕截图-2022-01-13-134416.png)
+![e.g.](https://cdn.jsdelivr.net/gh/iso-lib/image@main/121111.7edx1jk3c7g0.webp)
 代码如下:
 
     [

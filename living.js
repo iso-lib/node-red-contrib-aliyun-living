@@ -23,7 +23,7 @@ module.exports = function (RED) {
         });
 		
 		device.onProps((res)=>{
-			node.send(res.params);
+			node.send({payload:res.params});
 		});
 
 		device.on('error', (err) => {
