@@ -1,5 +1,8 @@
 <script type="text/javascript">
-(function() {   
+(function() {
+   // render() 里用到的默认值，原代码引用了它却从未定义，
+   // width 为空时直接抛 ReferenceError。默认值与节点默认 width 一致。
+   const DEFAULT_IMAGE_WIDTH = 160;
    RED.nodes.registerType('aliyun-living',{
         category: 'aliyun',
         color: '#a6bbcf',
@@ -43,6 +46,7 @@
     }
 
     var render = function(id, data, node) {
+        if (typeof data !== "string" || !data) { return; }
         let i = new Image();
         let $img = document.getElementById("image-output-img-" + id)
         if (!$img) {
@@ -66,14 +70,15 @@
         }
 
         i.onload = function () {
-            $img.setAttribute('height', node.width * i.height / i.width)
+            const w = node.width || DEFAULT_IMAGE_WIDTH;
+            $img.setAttribute('height', w * i.height / i.width)
             const bubbleId = $img.id.replace("img", "bubble");
             const $bubble = document.getElementById(bubbleId)
             let imgBbox = {}
             imgBbox.x = 0;
             imgBbox.y = 45;
-            imgBbox.width = node.width || DEFAULT_IMAGE_WIDTH;
-            imgBbox.height = parseInt(node.width * i.height / i.width);
+            imgBbox.width = w;
+            imgBbox.height = parseInt(w * i.height / i.width);
             const left = imgBbox.x
             const top = imgBbox.y + 2
             const right = imgBbox.x + imgBbox.width
@@ -101,7 +106,8 @@
     RED.events.on("editor:save", redraw)
 
     RED.comms.subscribe('qrdata', function (event, data) {
-        if (data.hasOwnProperty("data")) {
+        if (!data || typeof data !== "object" || !data.id) { return; }
+        if (data.hasOwnProperty("data") && typeof data.data === "string") {
             latestImages[data.id] = data.data
             render(data.id, data.data, RED.nodes.node(data.id))
         }
@@ -128,6 +134,9 @@
         <input type="text" id="node-input-DeviceName" placeholder="DeviceName">
     </div>
 	
+	<!-- DeviceSecret 保留在 defaults，不迁 credentials：老用户升级无需重填。
+	     三元组原申请页 https://iot.aliyun.com/products/livinglink 经 2026-11-23
+	     核实已无法访问，丢了密钥无法重申请。 -->
 	<div class="form-row">
         <label for="node-input-DeviceSecret"><i class="icon-tag"></i> ProductSecret</label>
         <input type="text" id="node-input-DeviceSecret" placeholder="ProductSecret">
@@ -146,6 +155,7 @@
 
 <script type="text/x-red" data-help-name="aliyun-living">
     <p>阿里生活物联网平台获取设备的三元组数据填入即可</p>
+    <p>注意：原平台入口 https://iot.aliyun.com/products/livinglink 经 2026-11-23 核实已无法访问，已有设备请保留原三元组，不要删除重建。</p>
     <a href="https://iot.aliyun.com/products/livinglink" target="_blank">点此登录阿里生活物联网平台</a>
     
 </script>
