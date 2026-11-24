@@ -1,0 +1,40 @@
+name: Publish to npm
+
+# 打标签即发 npm，例如：git tag v0.1.2 && git push origin v0.1.2
+# 标签里的版本号必须与 package.json 里的 version 一致，否则校验步骤会失败。
+# 首次使用前需在仓库 Settings > Secrets and variables > Actions 里
+# 新建 NPM_TOKEN（npmjs.com 上生成的 Automation 类型 token）。
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check tag matches package.json version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          echo "tag: $TAG_VERSION, package.json: $PKG_VERSION"
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "标签版本 ($TAG_VERSION) 与 package.json 版本 ($PKG_VERSION) 不一致" >&2
+            exit 1
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm install
+
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
